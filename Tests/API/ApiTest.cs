@@ -14,6 +14,7 @@ namespace FrontEndProject.Tests.API
         public ApiTest()
         {
             BaseUrl = "https://api.coingecko.com/api/v3/";
+
         }
 
         [Fact]
