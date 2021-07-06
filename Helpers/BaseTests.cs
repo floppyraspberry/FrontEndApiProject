@@ -1,4 +1,6 @@
 ﻿using Helpers.Configuration;
+using Helpers.Models;
+
 using Microsoft.Extensions.Configuration;
 using Polly;
 using Polly.Extensions.Http;
@@ -17,11 +19,13 @@ namespace Helpers
         protected HttpClient HttpClientInstance { get; set; }
         protected Serilog.ILogger Log { get; set; }
         protected HttpClient HttpClient { get; set; }
+        protected Urls Urls { get; }
 
         public BaseTests()
         {
             WebHelper = new WebHelper();
             HttpClientInstance = new HttpClient();
+            Urls = Configuration.GetSection("Urls").Get<Urls>();
         }
 
         protected int Get_WaitingTime() => Convert.ToInt32(Configuration["WaitTime"]);

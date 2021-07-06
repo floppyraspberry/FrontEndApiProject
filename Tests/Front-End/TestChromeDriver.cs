@@ -30,6 +30,7 @@ namespace FrontEndProject
             finally
             {
                 WebHelper.BrowserClose(driver);
+                Dispose();
             }
         }
     }

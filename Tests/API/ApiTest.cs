@@ -23,6 +23,7 @@ namespace FrontEndProject.Tests.API
             try
             {
                 var url1 = Configuration["GeckoUrl"];
+                var url2 = Urls.GeckoBaseUrl;
                 var url = $"{BaseUrl}ping";
                 var response = HttpClientInstance.GetAsync(url);
                 var actual = await response.Result.Content.ReadAsStringAsync();

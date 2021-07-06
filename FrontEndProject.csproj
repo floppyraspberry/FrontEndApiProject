@@ -3,6 +3,8 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>FrontEndProject</AssemblyName>
+    <IsPackable>false</IsPackable>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
@@ -10,6 +12,13 @@
     <Compile Remove="Helpers\**" />
     <EmbeddedResource Remove="Helpers\**" />
     <None Remove="Helpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".dockerignore" />
+    <None Remove=".gitignore" />
+    <None Remove="buildspec.yml" />
+    <None Remove="Dockerfile" />
   </ItemGroup>
 
   <ItemGroup>
