@@ -76,7 +76,7 @@ namespace FrontEndProject.Tests.API
                 var actual = await response.Result.Content.ReadAsStringAsync();
 
                 var content = JsonConvert.DeserializeObject<GeckoCoinHistoryResponse>(actual);
-
+                
                 Assert.Equal(HttpStatusCode.OK, response.Result.StatusCode);
             }
             catch (Exception ex)
