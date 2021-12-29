@@ -1,0 +1,4 @@
+variables:
+- group: ""
+- name: Test
+  value: $[variables.test]

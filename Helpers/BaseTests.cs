@@ -1,6 +1,5 @@
 ﻿using Helpers.Configuration;
 using Helpers.Models;
-
 using Microsoft.Extensions.Configuration;
 using Polly;
 using Polly.Extensions.Http;
@@ -14,16 +13,19 @@ namespace Helpers
 {
     public class BaseTests : IDisposable
     {
-        protected static IConfiguration Configuration => ConfigurationRead.Create();
+        protected static IConfiguration Configuration { get; set; }
         protected WebHelper WebHelper { get; set; }
         protected HttpClient HttpClientInstance { get; set; }
         protected Serilog.ILogger Log { get; set; }
         protected HttpClient HttpClient { get; set; }
         protected Urls Urls { get; }
+        protected Screenshot Screenshot { get; set; }
 
         public BaseTests()
         {
+            Configuration = ConfigurationRead.Create();
             WebHelper = new WebHelper();
+            Screenshot = new Screenshot();
             HttpClientInstance = new HttpClient();
             Urls = Configuration.GetSection("Urls").Get<Urls>();
         }

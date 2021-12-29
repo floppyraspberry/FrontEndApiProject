@@ -1,36 +1,41 @@
-﻿using Helpers;
+﻿using FrontEndProject.Tests.Front_End;
+using Helpers;
 using System;
+using System.Reflection;
 using Xunit;
 
 namespace FrontEndProject
 {
-    public class TestChromeDriver : BaseTests
+    public class TestChromeDriver : Common
     {
+        private readonly string Url;
+
         public TestChromeDriver()
         {
-                
+            Url = Configuration["googleUrl"];
         }
 
         [Fact]
-        public void GoToBrowser()
+        public void GoToUrlAndCloseBrowser()
         {
             var driver = WebHelper.BrowserStart();
-            var url = "https://www.google.com";
             WebHelper.BrowserConfigure(driver);
 
             try
             {
-                driver.Navigate().GoToUrl(url);
-
+                driver.Navigate().GoToUrl(Url);
             }
             catch (Exception e)
             {
                 Log.Information(e.ToString());
+                var methodName = MethodBase.GetCurrentMethod().Name;
+                Screenshot.TakeScreenshotChrome(driver, methodName);
+
+                throw;
             }
             finally
             {
                 WebHelper.BrowserClose(driver);
-                Dispose();
             }
         }
     }

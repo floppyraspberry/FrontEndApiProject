@@ -3,7 +3,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Diagnostics;
-using SeleniumExtras;
 
 namespace Helpers
 {

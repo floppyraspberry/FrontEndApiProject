@@ -9,11 +9,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
 		.gitignore = .gitignore
-		buildspec.yml = buildspec.yml
+		azure-pipelines-pr.yml = azure-pipelines-pr.yml
+		azure-pipelines.yml = azure-pipelines.yml
 		Dockerfile = Dockerfile
+		README.md = README.md
+		variables.yml = variables.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers", "Helpers\Helpers.csproj", "{929F76DB-C267-42D8-B4F0-7B45D98E5C33}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APiTests.Xunit", "..\APiTests.Xunit\APiTests.Xunit.csproj", "{086A016D-4177-446F-B023-EF26F1213F9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +44,14 @@ Global
 		{929F76DB-C267-42D8-B4F0-7B45D98E5C33}.Release|Any CPU.Build.0 = Release|Any CPU
 		{929F76DB-C267-42D8-B4F0-7B45D98E5C33}.Release|x64.ActiveCfg = Release|Any CPU
 		{929F76DB-C267-42D8-B4F0-7B45D98E5C33}.Release|x64.Build.0 = Release|Any CPU
+		{086A016D-4177-446F-B023-EF26F1213F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{086A016D-4177-446F-B023-EF26F1213F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{086A016D-4177-446F-B023-EF26F1213F9B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{086A016D-4177-446F-B023-EF26F1213F9B}.Debug|x64.Build.0 = Debug|Any CPU
+		{086A016D-4177-446F-B023-EF26F1213F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{086A016D-4177-446F-B023-EF26F1213F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{086A016D-4177-446F-B023-EF26F1213F9B}.Release|x64.ActiveCfg = Release|Any CPU
+		{086A016D-4177-446F-B023-EF26F1213F9B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
