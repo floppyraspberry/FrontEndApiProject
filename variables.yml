@@ -1,4 +1,6 @@
 variables:
-- group: ""
+- group: "secrets"
 - name: Test
   value: $[variables.test]
+- name: TrelloApiKey
+  value: $[variables.trelloApiKey]

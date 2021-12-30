@@ -1,8 +1,3 @@
-# ASP.NET Core (.NET Framework)
-# Build and test ASP.NET Core projects targeting the full .NET Framework.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 variables:
 - name: 'buildConfiguration'
   value: 'Release'
@@ -10,83 +5,43 @@ variables:
   value: 'Any CPU'
 - name: 'solution'
   value: '**/*.sln'
-- group: "Variables"
-- name: ClientSecret
-  value: $[variables.]
-- name: Password
-  value: $[variables.]
-
-parameters:
-- name: dockerBuildContext
-  default: "$(System.DefaultWorkingDirectory)"
-- name: dockerFile
-  default: "**/Dockerfile"
-- name: injectTokenArgName
-  type: string
-  default: PAT
-- name: dockerImageName
-  default: $(Build.BuildId)
+- template: variables.yml
 
 trigger:
-  batch: true
-  branches:
-    include:
-    - master
-    exclude:
-    - feature/*
+  - master  
 
-resources:
-  repositories:
-    - repository: templates
-      type: git
-      name: devops-templates-pipelines
 pool:
-  name: Azure Pipelines
-  vmImage: 'ubuntu-latest'
-  demands:
-  - msbuild
-  - visualstudio
-  - DotNetFramework
+  vmImage: 'windows-latest'
 
-stages:
-  - stage: Build
-    jobs:
-      - job: Build
-        displayName: "Docker Build"
-        steps:
-          - task: Docker@2
-            displayName: "Build container"
-            inputs:
-              command: build
-              dockerFile: ${{ parameters.dockerFile }}
-              buildContext: ${{ parameters.dockerBuildContext }}
-              arguments: --tag ${{ parameters.dockerImageName }}:$(Build.BuildId) --build-arg ${{ parameters.injectTokenArgName }}=$(System.AccessToken)
-
-          - task: Docker@0
-            displayName: 'Save docker image'
-            inputs:
-              action: 'Run a Docker command'
-              customCommand: 'image save ${{ parameters.dockerImageName }}:$(Build.BuildId) -o $(Build.ArtifactStagingDirectory)/${{ parameters.dockerImageName }}.tar'
-          - publish: $(Build.ArtifactStagingDirectory)
-            displayName: Publish Registry Artifact
-            artifact: "${{ parameters.dockerImageName }}-images"
-  - stage: Run
-    jobs:
-      - job: Run
-        displayName: "Docker Run"
-        steps:
-          - download: current
-            artifact: "${{ parameters.dockerImageName }}-images"
-
-          - task: Docker@0
-            displayName: 'Load image'
-            inputs:
-              action: 'Run a Docker command'
-              customCommand: 'load --input $(Pipeline.Workspace)/${{ parameters.dockerImageName }}-images/${{ parameters.dockerImageName }}.tar'
-
-          - task: Docker@2
-            displayName: "Run container"
-            inputs:
-              command: run
-              arguments: 
-                ${{ parameters.dockerImageName }}:$(Build.BuildId)
+jobs: 
+  - job:
+    steps:
+    - task: NuGetToolInstaller@0
+      displayName: 'Use NuGet 5.x'
+      inputs:
+        versionSpec: 5.x
+    
+    #- task: NuGetCommand@2
+    #  displayName: 'NuGet restore'
+    #  inputs:
+    #    restoreSolution: '$(solution)'
+    #    vstsFeed: '22306446-0cc3-43d2-a476-b8df37032c73'
+    
+    #- task: VSBuild@1
+    #  displayName: 'Build solution **\*.sln'
+    #  inputs:
+    #    solution: $(solution)
+    #    platform: $(buildPlatform)
+    #    configuration: $(buildConfiguration)
+    
+    #- task: CopyFiles@2
+    #  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+    #  inputs:
+    #    SourceFolder: '$(build.sourcesdirectory)'
+    #    Contents: '**\bin\$(BuildConfiguration)\**'
+    #    TargetFolder: '$(build.artifactstagingdirectory)'
+    #    CleanTargetFolder: true
+    #    OverWrite: true
+    
+    #- task: PublishBuildArtifacts@1
+    #  displayName: 'Publish Artifact: drop'    
